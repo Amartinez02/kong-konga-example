@@ -12,6 +12,11 @@ services:
           timeout: 30s
           retries: 3
         restart: on-failure
+        ports:
+          - $POSTGRES_PORT:5432
+        expose:
+          - $POSTGRES_PORT
+        command: -p $POSTGRES_PORT
         stdin_open: true
         tty: true
         volumes:
@@ -62,7 +67,7 @@ services:
         TOKEN_SECRET: ${KONGA_TOKEN_SECRET}
         DB_ADAPTER: ${KONG_DATABASE}
         DB_HOST: ${KONGA_DB_HOST}
-        DB_PORT: ${KONGA_DB_PORT}
+        DB_PORT: ${POSTGRES_PORT}
         DB_DATABASE: ${KONGA_DB_NAME}
         DB_USER: ${KONGA_DB_USERNAME}
         DB_PASSWORD: ${KONGA_DB_PASSWORD}
